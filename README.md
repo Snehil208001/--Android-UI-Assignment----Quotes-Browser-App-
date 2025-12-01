@@ -33,11 +33,12 @@ Favorites Screen	Accessible via top menu; displays all saved quotes.
 
 🚀 MVVM + Repository Pattern
 
-📸 Screenshots
-Home Fragment	Detail Fragment	Favorites Fragment
-(Add Screenshot Here)	(Add Screenshot Here)	(Add Screenshot Here)
+## 📸 Screenshots
 
-Tip: Add real screenshots or a GIF of app flow to make presentation stronger.
+| Home Screen | Detail Screen | Favorites Screen |
+|-------------|----------------|------------------|
+| ![Home](screenshots/home.png) | ![Detail](screenshots/detail.png) | ![Favorites](screenshots/favorites.png) |
+
 
 🛠 Tech Stack
 Category	Technology
