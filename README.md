@@ -37,7 +37,7 @@ Favorites Screen	Accessible via top menu; displays all saved quotes.
 
 | Home Screen | Detail Screen | Favorites Screen |
 |-------------|----------------|------------------|
-| ![Home](screenshots/home.png) | ![Detail](screenshots/detail.png) | ![Favorites](screenshots/favorites.png) |
+| ![Home](app/src/main/java/com/example/quotesbrowserapp/data/screenshots/home.png) | ![Detail](app/src/main/java/com/example/quotesbrowserapp/data/screenshots/detail.png) | ![Favorites](app/src/main/java/com/example/quotesbrowserapp/data/screenshots/favorites.png) |
 
 
 🛠 Tech Stack
