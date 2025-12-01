@@ -1,16 +1,17 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize") // Ensure this is here for your data classes
 }
 
 android {
     namespace = "com.example.quotesbrowserapp"
-    compileSdk = 36
+    compileSdk = 34 // FIXED: Changed from 36 to 34
 
     defaultConfig {
         applicationId = "com.example.quotesbrowserapp"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 34 // FIXED: Changed from 36 to 34
         versionCode = 1
         versionName = "1.0"
 
@@ -27,11 +28,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         viewBinding = true
@@ -39,13 +40,17 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Add Coil and Gson if they were missing from the previous error context
+    // implementation("io.coil-kt:coil:2.6.0")
+    // implementation("com.google.code.gson:gson:2.10.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
