@@ -6,15 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels // Import this
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.example.quotesbrowserapp.data.QuoteRepository
 import com.example.quotesbrowserapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    // Use activityViewModels to share the instance if needed, or viewModels() for local scope
+    private val viewModel: QuoteViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -23,7 +26,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition() // Wait for recycler view to load for transition
+        postponeEnterTransition()
 
         val adapter = QuoteAdapter { quote, imageView ->
             val extras = FragmentNavigatorExtras(
@@ -34,9 +37,12 @@ class HomeFragment : Fragment() {
         }
 
         binding.recyclerViewHome.adapter = adapter
-        adapter.submitList(QuoteRepository.getAllQuotes())
 
-        // Start transition once view is drawn
+        // OBSERVE LiveData instead of direct Repo call
+        viewModel.quotes.observe(viewLifecycleOwner) { quoteList ->
+            adapter.submitList(quoteList)
+        }
+
         view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
