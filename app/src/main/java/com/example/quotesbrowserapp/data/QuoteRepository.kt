@@ -1,7 +1,6 @@
 package com.example.quotesbrowserapp.data
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -26,7 +25,8 @@ object QuoteRepository {
         "You are never too old to set another goal or to dream a new dream."
     )
 
-    private val allQuotes: List<Quote> by lazy {
+    // FIXED: Renamed property from 'allQuotes' to '_allQuotes' to avoid clash with getAllQuotes() function
+    private val _allQuotes: List<Quote> by lazy {
         val listType = object : TypeToken<List<Map<String, Any>>>() {}.type
         val rawData: List<Map<String, Any>> = Gson().fromJson(RAW_JSON, listType)
 
@@ -43,14 +43,15 @@ object QuoteRepository {
     private const val PREFS_NAME = "favorite_prefs"
     private const val KEY_FAVORITES = "favorite_ids"
 
-    fun getAllQuotes(): List<Quote> = allQuotes
+    // References updated to use the renamed property
+    fun getAllQuotes(): List<Quote> = _allQuotes
 
-    fun getQuoteById(id: String): Quote? = allQuotes.find { it.id == id }
+    fun getQuoteById(id: String): Quote? = _allQuotes.find { it.id == id }
 
     fun getFavorites(context: Context): List<Quote> {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val favoriteIds = prefs.getStringSet(KEY_FAVORITES, emptySet()) ?: emptySet()
-        return allQuotes.filter { favoriteIds.contains(it.id) }
+        return _allQuotes.filter { favoriteIds.contains(it.id) }
     }
 
     fun isFavorite(context: Context, id: String): Boolean {
